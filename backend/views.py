@@ -11,11 +11,8 @@ from .models import user_insta
 # Create your views here.
 def index(request):
     posts=post.objects.all()
-    # user_profile=user_insta.objects.get(name=request.user)
-    user_profile="hola"
     context={
         "posts":posts,
-        "mero_naam":user_profile
     }
     return render(request,"index.html",context)
 
@@ -31,14 +28,20 @@ def upload(request):
         posts.save()
         return redirect("home")
     return render(request,"upload.html")
+@login_required(login_url='login')
+def profile(request,pk):
+    # slug=request.POST.get("")
+    user=User.objects.get(username=pk)
+    posts=post.objects.filter(userr=user)
+    user_info=user_insta.objects.get(username=user)
 
-def profile(request,slug):
-    posts=post.objects.filter(name=slug)    
+        
     context={
-        "posts":posts
+        "posts":posts,
+        "user_info":user_info
     }
     return render(request,"profile.html",context)
-
+@login_required(login_url='login')
 def edit(request):
     mero_form=UserCreationForm(request.POST)
     edit_form=signup(instance=request.user)
@@ -47,7 +50,7 @@ def edit(request):
         "form":mero_form
     }
     return render(request,"edit.html",context)
-    
+@login_required(login_url='login')    
 def like_post(request):
     post_id=request.POST.get("post_id")
     username=request.user.username
@@ -73,6 +76,7 @@ def search_username(request):
 def search_profile(request):
     return render(request,"search_profile.html")
 
+@login_required(login_url='login')
 def profile_info(request):
     user=user_profile(request.POST or None,request.FILES or None)
     context={
@@ -85,7 +89,7 @@ def profile_info(request):
         user_info.following=0
         user_info.post_num=0
         user_info.save()
-        return redirect("profile")
+        return redirect("home")
     return render(request,"profile_info.html",context)
     
 

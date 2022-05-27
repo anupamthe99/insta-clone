@@ -1,6 +1,7 @@
 from ast import BinOp
 from distutils.command.upload import upload
 import email
+from tkinter import CASCADE
 from tokenize import blank_re
 from django.db import models
 from requests import request
@@ -22,7 +23,7 @@ class like(models.Model):
     username=models.CharField(max_length=100,default="")
     
 class user_insta(models.Model):
-    username=models.CharField(max_length=50,default="")
+    username=models.OneToOneField(User,on_delete=models.CASCADE,blank=True)
     name=models.CharField(max_length=50)
     email=models.EmailField()
     bio=models.CharField(max_length=70,blank=True)
