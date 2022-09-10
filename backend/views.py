@@ -24,7 +24,6 @@ def index(request):
     return render(request,"index.html",context)
 
 @login_required(login_url='login')
-@csrf_protect
 def upload(request):
     if request.method=="POST":
         pic=request.FILES.get("upload_image")
@@ -37,7 +36,6 @@ def upload(request):
         return redirect("home")
     return render(request,"upload.html")
 @login_required(login_url='login')
-@csrf_protect
 def profile(request,pk):
     # slug=request.POST.get("")
     user=User.objects.get(username=pk)
@@ -51,7 +49,6 @@ def profile(request,pk):
     }
     return render(request,"profile.html",context)
 @login_required(login_url='login')
-@csrf_protect
 def edit(request,slug):
     
     # mero_form=UserCreationForm(request.POST)
@@ -81,7 +78,6 @@ def edit(request,slug):
     }
     return render(request,"edit.html",context)
 @login_required(login_url='login')    
-@csrf_protect
 def like_post(request):
     post_id=request.POST.get("post_id")
     username=request.user.username
@@ -96,7 +92,6 @@ def like_post(request):
         like_log.save()
     return redirect("home")
 @login_required(login_url="login")
-@csrf_protect
 def search_username(request):
     query=request.GET["search_username"]
     # user=User.objects.filter(username__icontains=username)
@@ -110,7 +105,6 @@ def search_profile(request):
     return render(request,"search_profile.html")
 
 @login_required(login_url='login')
-@csrf_protect
 def profile_info(request):
     user=user_profile(request.POST or None,request.FILES or None)
     context={
@@ -127,7 +121,6 @@ def profile_info(request):
     return render(request,"profile_info.html",context)
 
 @login_required(login_url="login")
-@csrf_protect
 def commentPostapi(request,slug):
     # posts=post.objects.get(post=slug)
     # comment=commentPost.objects.filter(post_comment=posts)
