@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wk)=((vd5cgb%zt8h2x43o(4&4-y@8yoh+j&8mgh%1z2fqv$95
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -123,6 +123,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_URL = 'insta_pic/'
 STATIC_URL = 'profile_pic/'
+STATIC_ROOT='static/'
 STATICFILES_DIRS = [ 
         os.path.join(BASE_DIR,"frontend/static"),        
         os.path.join(BASE_DIR,"insta_pic"),        

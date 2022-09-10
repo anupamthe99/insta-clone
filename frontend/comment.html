@@ -1,0 +1,75 @@
+{%extends 'base.html'%}
+{%block title%}Comment post{%endblock%}
+{%block content%}
+{%load extras%}
+{%for message in messages%}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+  {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{%endfor%}
+<!-- scroll bar -->
+{{post}}
+<div class="container mt-5 d-flex align-content-center flex-column" style="width:100vh;height: 100vh;">
+  <div class="card mb-4" style="width: 30rem;height: 90vh;">
+    {% comment %} <!-- {% load static %} --> {% endcomment %}
+    {% comment %} <!-- <img src="{%static '{{post.pic}}'%}" class="card-img-top" alt="not loaded"> --> {% endcomment %}
+    <img src="{{post.pic.url}}" class="card-img-top h-75" alt="not loaded">
+    <div class="card-body">
+      <h2>
+       <a class="link-dark" href="like?post_id={{post.id}}">
+          <i class="bi bi-heart-fill"></i>
+        </a> 
+        {{post.like_count}}
+      </h2>
+      <p class="card-text text-secondary">{{post.userr}}:{{post.caption}}</p>
+      <div class="comment text-primary mb-2">
+        Comments
+      </div>
+      <form action="" method="post">
+        {% csrf_token %}
+          <div class="row m-1">
+            <div class="img col-md-2">img</div>       
+            <input class="col-md-7 rounded-3 text-dark" type="text" placeholder="post a comment here" name="comment">
+            <input type="hidden" name="sno" value="{{post.id}}">
+            <input type="hidden" name="parentsno" value="">
+            <button class="btn btn-primary btn-sm col-md-2 ms-2">Post</button>
+          </div>
+      </form>
+      <br><br>
+      {%for comment in comments%}
+      <div class="comments d-flex mb-3">
+        <div class="img col-md-2"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuLJT_cWegwhoP1sq1QyTHfQ7TnfuxOD5lPkImdeDne0TIRbsEdfDOum9WTohpj9a9Mq4&usqp=CAU" alt="" height="30" width="30" class="rounded-circle"></div>       
+        <div class="card-text text-secondary">{{comment.user}}:{{comment.comment}}</div>
+        <!-- <span>{{comment.timestamps}}</span> -->
+      </div>
+      <div class="ms-5">
+        <p>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{comment.sn}}" aria-expanded="false" aria-controls="collapseExample">
+            Reply
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample{{comment.sn}}">
+          <div class="card card-body">
+            <form action="" method="post">
+              {% csrf_token %}
+                <div class="row m-1">
+                  <div class="img col-md-2">img</div>       
+                  <input class="col-md-7 rounded-3 text-dark" type="text" placeholder="post a comment here" name="comment">
+                  <input type="hidden" name="sno" value="{{post.id}}">
+                  <input type="hidden" name="parentsno" value="{{comment.sn}}">
+                  <button class="btn btn-primary btn-sm col-md-2 ms-2">Post</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+      {{reply}}
+      {%for r,s in reply.items() %}
+      {{r}}
+      {%endfor%}
+    </div>
+  </div>
+</div>
+{%endblock content%}

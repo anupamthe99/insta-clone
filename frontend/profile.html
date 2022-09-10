@@ -5,12 +5,6 @@
         <div class="d-flex flex-column w-50">
             <img src="{{user_info.proflie_pic.url}}" alt="" height="200" >
             <div class="d-flex justify-content-center">
-                <a class="" href="">
-                    <button class="btn btn-primary mt-2 btn-sm me-3">Change Photo</button>
-                </a>
-                <a class="" href="{%url 'upload'%}">
-                    <button class="btn btn-primary mt-2 btn-sm ">Upload feed</button>
-                </a>
             </div>
         </div>
         <div class="info">
@@ -18,15 +12,27 @@
                 <li class="list-unstyled fs-5">Username:{{user_info.username}}</li>
                 <li class="list-unstyled fs-5">Email:{{user_info.email}}</li>
                 <li class="list-unstyled fs-5">Bio:{{user_info.bio}}</li>
-                <a href="{%url 'edit'%}">
-                    <button class="btn btn-primary btn-sm mt-2">Edit</button>
-                </a>
+                <div class="main d-flex gap-4">
+                    {%if request.user == user_info.username%}
+                    <div class="link">
+                        <a href="{%url 'edit' user_info.id%}">
+                            <button class="btn btn-primary btn-sm mt-2">Edit</button>
+                        </a>
+                    </div>
+                    <div class="link">
+                        <a class="" href="{%url 'upload'%}">
+                            <button class="btn btn-primary mt-2 btn-sm ">Upload feed</button>
+                        </a>
+                    </div>
+                </div>
+                {%endif%}
             </ul>
             <a href="">
             </a>
         </div>
     </div>
 </div>
+<div class="h4 text-secondary text-center mt-3">Upload Feeds :</div>
 <div class="post w-100">
     <div class="container mt-5 d-flex align-content-center flex-column w-50 mx-auto" >
         {%for post in posts reversed%}

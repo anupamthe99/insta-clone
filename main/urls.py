@@ -15,4 +15,4 @@ urlpatterns = [
     url('signup', auth_view.signup, name='signup'),
     url('logout', auth_view.signout, name='logout'),
     
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

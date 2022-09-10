@@ -2,13 +2,13 @@
 
 {%block content%}
 <div class="container h2 mt-2 w-100">
-    {%for user in users%}
+    {%for s_user in users%}
     <div class="card" style="width: 18rem;">
-        <img src="https://i.pinimg.com/564x/c3/fe/5b/c3fe5b6d484aaefa5640e250196c1c5c.jpg" class="card-img-top" alt="...">
+        <img src="{{s_user.proflie_pic.url}}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">username: {{user}}</h5>
-          <p class="card-text">{{user.email}}<p>
-          <a href="{%url 'profile'%}" class="btn btn-primary">Go to profile</a>
+          <h5 class="card-title">username: {{s_user.username}}</h5>
+          <p class="card-text">{{s_user.email}}<p>
+          <a href="profile/{{s_user.username}}" class="btn btn-primary">Go to profile</a>
         </div>
       </div>
     {%endfor%}

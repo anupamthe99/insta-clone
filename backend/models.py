@@ -1,7 +1,9 @@
 from ast import BinOp
 from distutils.command.upload import upload
 import email
+from pickle import TRUE
 from tkinter import CASCADE
+from tkinter.tix import Tree
 from tokenize import blank_re
 from django.db import models
 from requests import request
@@ -28,9 +30,23 @@ class user_insta(models.Model):
     email=models.EmailField()
     bio=models.CharField(max_length=70,blank=True)
     proflie_pic=models.ImageField(upload_to="profile_pic",blank=True)
-    followers=models.IntegerField()
-    following=models.IntegerField()
-    post_num=models.IntegerField()
+    followers=models.IntegerField(default=0)
+    following=models.IntegerField(default=0)
+    post_num=models.IntegerField(default=0)
     
     def __str__(self):
         return self.name
+    
+class commentPost(models.Model):
+    sn=models.AutoField(primary_key=True)
+    comment=models.TextField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    post_comment=models.ForeignKey(post,on_delete=models.CASCADE)
+    parent=models.ForeignKey('self',on_delete=models.CASCADE,null=True)
+    timestamps=models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.comment
+    
+    
+

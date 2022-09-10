@@ -1,0 +1,16 @@
+Social media project steps to do :
+
+1.edit proile option 
+2.profile edit users can see it other profile and edit it  
+3.comment username with photo
+4.using django allauth 
+5.report a bug page 
+6.username not found logic
+7.sending email for bug to my acc (optional)
+8.reply comment option 
+9.like photo functionality 
+10.make whole page with HTMX 
+11.messaging functionality
+12.follow option and unfollow option
+13.post count ,followers count,following count 
+14.user recommendation
