@@ -2,8 +2,6 @@ from ast import BinOp
 from distutils.command.upload import upload
 import email
 from pickle import TRUE
-from tkinter import CASCADE
-from tkinter.tix import Tree
 from tokenize import blank_re
 from django.db import models
 from requests import request
